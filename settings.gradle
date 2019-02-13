@@ -1,1 +1,1 @@
-include ':app', ':fresco_'
+include ':app', ':fresco_', ':day01test'
