@@ -16,7 +16,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 public class MainActivity extends AppCompatActivity {
     private SimpleDraweeView DraweeView;
-    private Uri uri;
+    private Uri uri  ;
     private String URL = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3064674694,445703165&fm=26&gp=0.jpg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
