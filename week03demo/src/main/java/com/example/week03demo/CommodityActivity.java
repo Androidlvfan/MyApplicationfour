@@ -34,6 +34,8 @@ public String id;
         commodity_namee = findViewById(R.id.commodity_namee);
         commodity_price = findViewById(R.id.commodity_price);
         commodity_WebView = findViewById(R.id.commodity_WebView);
+        //eventBus接收值
+        EventBus.getDefault().register(this);
 
         //支持缩放
         commodity_WebView.getSettings().setSupportZoom(true);
@@ -46,17 +48,14 @@ public String id;
 
         commodityPresenter = new CommodityPresenter(this);
         HashMap<String,String> params = new HashMap<>();
-        params.put("commodityId",id);
+        params.put("commodityId",id+"");
         commodityPresenter.getCommdityPresenter(params);
-
-        //eventBus接收值
-        EventBus.getDefault().register(this);
 
     }
 
     @Subscribe(sticky = true)
     public void getId(String CommodityId){
-        id = CommodityId;
+        this.id = CommodityId;
     }
 
     /**
@@ -66,12 +65,13 @@ public String id;
     @Override
     public void Success(String result) {
         CommdityBean commdityBean = new Gson().fromJson(result, CommdityBean.class);
-        /*commodity_namee.setText(commdityBean.getResult().getCommodityName());
-        commodity_price.setText(commdityBean.getResult().getPrice()+"");*/
+        commodity_namee.setText(commdityBean.getResult().getCommodityName());
+        commodity_price.setText(commdityBean.getResult().getPrice()+"");
 
         //设置webView
         commodity_WebView.setWebChromeClient(new WebChromeClient());
-        commodity_WebView.loadDataWithBaseURL(null,commdityBean.getResult().getDetails(),"textxml","utf-8",null);
+        commodity_WebView.getSettings().setJavaScriptEnabled(true);
+        commodity_WebView.loadDataWithBaseURL(null,commdityBean.getResult().getDetails(),"text/html","utf-8",null);
     }
 
     @Override
